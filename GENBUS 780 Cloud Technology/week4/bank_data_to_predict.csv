@@ -1,0 +1,11 @@
+age,job_type,marital_status,education,has_credit_in_default,housing_loan,personal_loan,communication_type,last_contact_month,last_contact_day_of_week,last_contact_duration_secs,previous_campaign_outcome,previous_campaign_num_contacts,current_campaign_num_contacts
+36,technician,single,university.degree,no,yes,no,cellular,jun,mon,287,nonexistent,0,1
+33,admin.,married,university.degree,no,yes,no,cellular,jun,mon,346,nonexistent,0,1
+52,admin.,single,university.degree,no,no,yes,cellular,jun,mon,212,nonexistent,0,1
+29,admin.,married,high.school,no,yes,no,cellular,jun,mon,263,nonexistent,0,1
+36,technician,married,university.degree,no,yes,no,cellular,jun,mon,192,nonexistent,0,1
+45,unemployed,married,basic.9y,no,yes,no,cellular,jun,mon,129,failure,1,1
+29,admin.,single,university.degree,no,yes,no,cellular,jun,mon,154,nonexistent,0,1
+41,admin.,married,university.degree,no,no,no,cellular,jun,mon,175,nonexistent,0,1
+22,student,single,basic.6y,no,yes,no,cellular,jun,mon,814,success,1,1
+58,admin.,married,university.degree,no,yes,no,cellular,jun,mon,65,nonexistent,0,1

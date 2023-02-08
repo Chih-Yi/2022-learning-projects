@@ -1,0 +1,6 @@
+SELECT c.c_name, count(*)
+FROM lineorder l
+INNER JOIN customer c
+ON l.lo_custkey = c.c_custkey
+GROUP BY c.c_name
+LIMIT 10;

@@ -1,0 +1,17 @@
+select count(cmplnt_num), ofns_desc from crime_reports
+group by ofns_desc
+order by count(cmplnt_num) desc
+limit 3;
+
+
+select law_cat_cd, count(cmplnt_num), prem_typ_desc from crime_reports
+where LOWER(law_cat_cd) = 'felony' 
+group by prem_typ_desc, law_cat_cd
+order by count(cmplnt_num) desc
+;
+
+
+select count(cmplnt_num), extract(year from cmplnt_fr_dt) as year
+from crime_reports
+where extract(year from cmplnt_fr_dt)=2015 or extract(year from cmplnt_fr_dt)=2020
+group by extract(year from cmplnt_fr_dt);

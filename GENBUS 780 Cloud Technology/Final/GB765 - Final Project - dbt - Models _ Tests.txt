@@ -1,0 +1,138 @@
+
+#################################
+stg_flightview_airports.sql
+#################################
+
+SELECT
+	id as airport_id,
+	airport_abbreviation,
+	airport_name,
+	city,
+	state,
+	longitude,
+	latitude
+FROM
+	`my-first-project-369004`.s3.airports
+
+
+#################################
+stg_flightview_airlines.sql
+#################################
+
+SELECT
+	id as airline_id,
+	airline_abbreviation,
+	airline_name
+FROM
+	`my-first-project-369004`.s3.airlines
+
+
+#################################
+stg_flightview_flights.sql
+#################################
+
+SELECT
+	id as flight_id,
+	carrier as airline_id,
+	origin as airport_origin_id,
+	destination as airport_destination_id,
+	year,
+	month,
+	day_of_month,
+	time_in_air,
+	time_on_flight,
+	departure_delay,
+	arrival_delay,
+	carrier_delay as arrival_delay_category_carrier,
+	weather_delay as arrival_delay_category_weather,
+	nas_delay as arrival_delay_category_nas,
+	security_delay as arrival_delay_category_security,
+	late_aircraft_delay as arrival_delay_category_aircraft
+FROM
+	`my-first-project-369004`.s3.flights
+
+
+#################################
+stg_flightview.yml
+#################################
+
+version: 2
+
+models:
+  - name: stg_flightview_airports
+    columns:
+      - name: airport_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_flightview_airlines
+    columns:
+      - name: airline_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_flightview_flights
+    columns:
+      - name: flight_id
+        tests:
+          - unique
+          - not_null
+
+
+#################################
+flights_final.sql
+#################################
+
+with airports as (
+
+    select * from {{ ref('stg_flightview_airports') }}
+
+),
+
+airlines as (
+
+    select * from {{ ref('stg_flightview_airlines') }}
+
+),
+
+flights as (
+
+    select * from {{ ref('stg_flightview_flights') }}
+
+),
+
+
+final as (
+
+    select
+
+        flights.flight_id,
+        airlines.airline_name,
+        airports.airport_name as origin_airport,
+        flights.year,
+        flights.month,
+        flights.day_of_month,
+        flights.time_in_air,
+        flights.time_on_flight,
+        flights.departure_delay,
+        flights.arrival_delay,
+        (flights.arrival_delay_category_carrier + flights.arrival_delay_category_aircraft) as arrival_delay_caused_by_carrier,
+        (flights.arrival_delay_category_weather + arrival_delay_category_nas + arrival_delay_category_security) as arrival_delay_caused_by_others,
+        flights.arrival_delay_category_carrier,
+        flights.arrival_delay_category_weather,
+        flights.arrival_delay_category_nas,
+        flights.arrival_delay_category_security,
+        flights.arrival_delay_category_aircraft
+
+    from flights
+
+        left join airlines ON airlines.airline_id = flights.airline_id
+        left join airports ON airports.airport_id = flights.airport_origin_id
+
+)
+
+select * from final
+
+

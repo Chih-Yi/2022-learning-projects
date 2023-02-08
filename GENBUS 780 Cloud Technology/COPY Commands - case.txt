@@ -1,0 +1,8 @@
+COPY crime_reports
+FROM 's3://crime-reports'
+credentials 'aws_iam_role=arn:aws:iam::625873526101:role/LabRole'
+gzip
+DATEFORMAT 'MM/DD/YYYY'
+TIMEFORMAT 'auto'
+region 'us-east-1'
+csv;

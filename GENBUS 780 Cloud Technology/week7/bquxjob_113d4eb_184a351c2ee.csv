@@ -1,0 +1,2 @@
+id,_fivetran_synced,done,message,progress,rows_updated_or_inserted,schema,start,status,table,update_id,update_started
+2be72a46-1328-48d4-90bc-63874c8d04c3,2022-11-23 06:56:07.597000 UTC,2022-11-23 06:56:07.586000 UTC,,2022-11-23 06:55:47.736000 UTC,40,google_sheets,2022-11-23 06:55:49.932000 UTC,Ok,digital_ad_spend,db655cc3-7874-48ef-bc72-5881b925a89f,2022-11-23 06:55:47.736000 UTC
